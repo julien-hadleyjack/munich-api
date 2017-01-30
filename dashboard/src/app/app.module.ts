@@ -5,16 +5,21 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import {FirebaseModule} from "./firebase.module";
+import {MovieComponent} from "./movie/movie.component";
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
