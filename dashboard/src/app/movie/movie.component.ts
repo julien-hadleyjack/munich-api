@@ -1,6 +1,9 @@
 import {Component, OnInit} from "@angular/core";
-import {FirebaseListObservable} from "angularfire2";
-import {MovieService, Movie} from "./movie.service";
+import {MovieService} from "./movie.service";
+import {Observable} from "rxjs";
+import {Movie} from "../model/movie";
+import "rxjs/operator/filter";
+import "rxjs/operator/map";
 
 @Component({
     moduleId: module.id,
@@ -10,15 +13,16 @@ import {MovieService, Movie} from "./movie.service";
 })
 export class MovieComponent implements OnInit {
 
-    movies: FirebaseListObservable<Movie[]>;
+    movies: Observable<Movie[]>;
 
     constructor(private movieService: MovieService) {
 
     }
 
     ngOnInit() {
-      this.movies = this.movieService.getMovies();
-      //this.cinemas.subscribe(res => console.log(res));
+      this.movies = this.movieService.getMovies()
+        .map(movies => movies.filter(movie => movie.orginal_language));
+      this.movies.subscribe(res => console.log(res));
 
     }
 

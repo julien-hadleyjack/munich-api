@@ -1,12 +1,10 @@
-import {AngularFireDatabase, FirebaseListObservable} from "angularfire2";
+import {AngularFireDatabase} from "angularfire2";
 import {Injectable} from "@angular/core";
+import {Movie} from "../model/movie";
+import {Observable} from "rxjs";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/do";
 
-
-export class Movie {
-  orginal_language: boolean;
-  subtitles: boolean;
-  title: boolean;
-}
 
 @Injectable()
 export class MovieService {
@@ -14,8 +12,11 @@ export class MovieService {
   constructor(private db:AngularFireDatabase) {
   }
 
-  getMovies(): FirebaseListObservable<Movie[]> {
-    return this.db.list('movies/city_kino');
+  getMovies(): Observable<Movie[]> {
+    return this.db.list('movies/city_kino')
+      .map(Movie.fromJsonArray);
+      // .do(console.log)
+
   }
 
 }
