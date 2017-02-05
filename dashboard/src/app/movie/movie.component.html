@@ -1,3 +1,11 @@
-<li *ngFor="let movie of movies | async">
-  {{ movie.title }}
-</li>
+<div class="card">
+  <div class="card-block">
+    <h4 class="card-title">{{title}}</h4>
+    <ul class="list-group list-group-flush" *ngFor="let movie of movies | async">
+      <li class="list-group-item justify-content-between">
+        {{ movie.title }}
+        <span class="badge badge-default badge-pill" *ngIf="movie.orginal_language">OV</span>
+      </li>
+    </ul>
+  </div>
+</div>

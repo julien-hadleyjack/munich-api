@@ -13,6 +13,8 @@ import "rxjs/operator/map";
 })
 export class MovieComponent implements OnInit {
 
+  title: string = 'Movies';
+
     movies: Observable<Movie[]>;
 
     constructor(private movieService: MovieService) {

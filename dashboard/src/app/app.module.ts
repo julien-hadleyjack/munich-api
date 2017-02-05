@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FirebaseModule} from "./firebase.module";
 import {MovieComponent} from "./movie/movie.component";
+import {AlertModule} from "ng2-bootstrap";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {MovieComponent} from "./movie/movie.component";
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    AlertModule.forRoot(),
     FirebaseModule
   ],
   providers: [],
