@@ -7,9 +7,13 @@
 import pyrebase
 
 from scraper.items import Movie, Museum
+from scraper.spiders.city_kino import CityKinoSpider
+from scraper.spiders.local import LocalSpider
+from scraper.spiders.royal_kino import RoyalKinoSpider
 
 
 class ScraperPipeline(object):
+
     def process_item(self, item, spider):
         return item
 
@@ -35,25 +39,21 @@ class FirebasePipeline(object):
             "messagingSenderId": "1047530724009"
         }
         self.firebase = pyrebase.initialize_app(config)
-        # self.firebase.child('movies').remove()
+
+    def open_spider(self, spider):
+        if isinstance(spider, (RoyalKinoSpider, CityKinoSpider)):
+            self.firebase.database().child('movies').child(spider.name).remove()
+        elif isinstance(spider, LocalSpider):
+            self.firebase.database().child('museums').remove()
 
     def process_item(self, item, spider):
         if isinstance(item, Movie):
             path = self.firebase.database().child('movies').child(item['cinema'])
-            match_path = self.firebase.database().child('movies').child(item['cinema']).order_by_child("title").equal_to(item["title"])
         elif isinstance(item, Museum):
             path = self.firebase.database().child('museums')
-            match_path = self.firebase.database().child('museums').order_by_child("name").equal_to(item["name"])
         else:
             return item
 
-        if not match_path.limit_to_first(1).get().val():
-            path.push(dict(item.to_firebase()))
+        path.push(dict(item.to_firebase()))
         return item
 
-
-if __name__ == '__main__':
-    firebase = FirebasePipeline()
-    # print(firebase.firebase.child('movies').child("city_kino").get().val().values())
-    matches = firebase.firebase.child("movies").child("city_kino").order_by_child("title").equal_to("La La Land").limit_to_first(1).get()
-    print(matches.val())
