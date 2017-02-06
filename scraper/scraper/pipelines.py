@@ -6,7 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pyrebase
 
-from scraper.items import Movie
+from scraper.items import Movie, Museum
 
 
 class ScraperPipeline(object):
@@ -40,20 +40,15 @@ class FirebasePipeline(object):
     def process_item(self, item, spider):
         if isinstance(item, Movie):
             path = self.firebase.database().child('movies').child(item['cinema'])
-            matches = self.firebase.database()\
-                .child('movies')\
-                .child(item['cinema'])\
-                .order_by_child("title")\
-                .equal_to(item["title"])\
-                .limit_to_first(1)\
-                .get()
-            if matches.val():
-                return item
-            print("Path: " + path.path)
+            match_path = self.firebase.database().child('movies').child(item['cinema']).order_by_child("title").equal_to(item["title"])
+        elif isinstance(item, Museum):
+            path = self.firebase.database().child('museums')
+            match_path = self.firebase.database().child('museums').order_by_child("name").equal_to(item["name"])
         else:
             return item
 
-        path.push(dict(item.to_firebase()))
+        if not match_path.limit_to_first(1).get().val():
+            path.push(dict(item.to_firebase()))
         return item
 
 

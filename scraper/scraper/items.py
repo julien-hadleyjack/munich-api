@@ -45,3 +45,13 @@ class Meal(FirebaseItem):
     price = Field()
 
     firebase_fields = ["name", "price"]
+
+
+class Museum(FirebaseItem):
+
+    name = Field()
+    address = Field()
+    website = Field()
+    price = Field()
+
+    firebase_fields = ["name", "address", "website", "price"]

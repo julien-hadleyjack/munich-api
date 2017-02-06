@@ -1,0 +1,12 @@
+museums:
+
+  - name: Archiv Geiger
+    address: Muttenthalerstraße, 81477 München
+    website: http://archiv-geiger.de 
+    price: 0
+
+  - name: Artothek & Bildersaal
+    address: Rosental 16, 80331 München 
+    website: http://www.muenchen.de/artothek 
+    price: 0
+  
