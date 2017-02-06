@@ -34,12 +34,22 @@ class FirebasePipeline(object):
             "storageBucket": "munichapi.appspot.com",
             "messagingSenderId": "1047530724009"
         }
-        self.firebase = pyrebase.initialize_app(config).database()
+        self.firebase = pyrebase.initialize_app(config)
         # self.firebase.child('movies').remove()
 
     def process_item(self, item, spider):
         if isinstance(item, Movie):
-            path = self.firebase.child('movies').child(item['cinema'])
+            path = self.firebase.database().child('movies').child(item['cinema'])
+            matches = self.firebase.database()\
+                .child('movies')\
+                .child(item['cinema'])\
+                .order_by_child("title")\
+                .equal_to(item["title"])\
+                .limit_to_first(1)\
+                .get()
+            if matches.val():
+                return item
+            print("Path: " + path.path)
         else:
             return item
 
@@ -49,4 +59,6 @@ class FirebasePipeline(object):
 
 if __name__ == '__main__':
     firebase = FirebasePipeline()
-    print(firebase.firebase.child('movies').child("city_kino").get().val().values())
+    # print(firebase.firebase.child('movies').child("city_kino").get().val().values())
+    matches = firebase.firebase.child("movies").child("city_kino").order_by_child("title").equal_to("La La Land").limit_to_first(1).get()
+    print(matches.val())
