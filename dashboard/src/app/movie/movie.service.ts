@@ -12,8 +12,8 @@ export class MovieService {
   constructor(private db:AngularFireDatabase) {
   }
 
-  getMovies(): Observable<Movie[]> {
-    return this.db.list('movies/city_kino')
+  getMovies(cinema: string): Observable<Movie[]> {
+    return this.db.list('movies/' + cinema)
       .map(Movie.fromJsonArray);
       // .do(console.log)
 

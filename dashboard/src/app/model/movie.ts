@@ -2,7 +2,7 @@
 export class Movie {
 
   constructor(
-    public $key: string,
+    private $key: string,
     public orginal_language: boolean,
     public subtitles: boolean,
     public title: boolean) {

@@ -1,7 +1,14 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <a class="navbar-brand" href="#">{{title}}</a>
+</nav>
+
 <div class="container">
 
   <div class="card-deck">
-    <movie-overview></movie-overview>
+    <movie-overview [selectedCinema]="cinema_names.CITY"></movie-overview>
+    <movie-overview [selectedCinema]="cinema_names.ROYAL"></movie-overview>
+    <movie-overview [selectedCinema]="cinema_names.ROYAL"></movie-overview>
+    <movie-overview [selectedCinema]="cinema_names.CITY"></movie-overview>
   </div>
 
   <router-outlet></router-outlet>

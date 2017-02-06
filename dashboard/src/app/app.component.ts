@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Cinema } from './model/cinema';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'Munich Dashboard';
+  cinema_names = Cinema.NAMES;
 }
