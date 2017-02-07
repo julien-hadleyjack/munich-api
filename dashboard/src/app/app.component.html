@@ -1,16 +1,27 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-light bg-faded">
+  <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>-->
   <a class="navbar-brand" href="#">{{title}}</a>
+
+  <!--<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>-->
 </nav>
 
 <div class="container">
 
-  <div class="card-deck">
+  <div class="card-columns ">
     <movie-overview [selectedCinema]="cinema_names.CITY"></movie-overview>
     <movie-overview [selectedCinema]="cinema_names.ROYAL"></movie-overview>
     <movie-overview [selectedCinema]="cinema_names.ROYAL"></movie-overview>
     <movie-overview [selectedCinema]="cinema_names.CITY"></movie-overview>
     <museum-overview></museum-overview>
-  </div>
+    </div>
 
   <router-outlet></router-outlet>
 </div>
