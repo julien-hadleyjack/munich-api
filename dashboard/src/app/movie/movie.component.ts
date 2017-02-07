@@ -1,9 +1,9 @@
-import {Component, OnInit, Input} from "@angular/core";
-import {MovieService} from "./movie.service";
-import {Observable} from "rxjs";
-import {Movie} from "../model/movie";
-import "rxjs/operator/filter";
-import "rxjs/operator/map";
+import {Component, OnInit, Input} from '@angular/core';
+import {MovieService} from './movie.service';
+import {Observable} from 'rxjs';
+import {Movie} from '../model/movie';
+import 'rxjs/operator/filter';
+import 'rxjs/operator/map';
 
 @Component({
   moduleId: module.id,
@@ -13,9 +13,9 @@ import "rxjs/operator/map";
 export class MovieComponent implements OnInit {
 
   @Input()
-  selectedCinema: string = 'city_kino';
+  selectedCinema = 'city_kino';
 
-  title: string = 'Movies';
+  title = 'Movies';
   movies: Observable<Movie[]>;
 
   constructor(private movieService: MovieService) {

@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/tslint-microsoft-contrib"
   ],
   "rules": {
     "callable-types": true,
@@ -111,6 +112,9 @@
     "directive-class-suffix": true,
     "no-access-missing-member": true,
     "templates-use-public": true,
-    "invoke-injectable": true
+    "invoke-injectable": true,
+
+    "max-classes-per-file": [true, 1],
+    "max-func-body-length": [true, 75]
   }
 }
