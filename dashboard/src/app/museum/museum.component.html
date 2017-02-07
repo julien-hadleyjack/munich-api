@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-block">
+    <h4 class="card-title">{{title}}</h4>
+    <ul class="list-group list-group-flush" *ngFor="let museum of museums | async">
+      <li class="list-group-item justify-content-between">
+        {{ museum.name }}
+        <span class="badge badge-default badge-pill" *ngIf="museum.price === 0">Free</span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -7,11 +7,13 @@ import {FirebaseModule} from './firebase.module';
 import {MovieComponent} from './movie/movie.component';
 import {AlertModule} from 'ng2-bootstrap';
 import {MovieService} from './movie/movie.service';
+import {MuseumComponent} from "./museum/museum.component";
+import {MuseumService} from "./museum/museum.service";
 
 
 @NgModule({
-    bootstrap: [AppComponent],
-    imports: [
+  bootstrap: [AppComponent],
+  imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
@@ -20,8 +22,13 @@ import {MovieService} from './movie/movie.service';
   ],
   declarations: [
     AppComponent,
-    MovieComponent
+    MovieComponent,
+    MuseumComponent
   ],
-  providers: [MovieService]
+  providers: [
+    MovieService,
+    MuseumService
+  ]
 })
-export class AppModule { }
+export class AppModule {
+}
