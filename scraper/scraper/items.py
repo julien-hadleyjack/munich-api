@@ -12,7 +12,7 @@ class FirebaseItem(Item):
 
     firebase_fields = []
 
-    def to_firebase(self):
+    def to_firebase(self) -> dict:
         original = dict(self)
         firebase_format = lambda x: x.to_firebase() if isinstance(x, FirebaseItem) else x
         return {key: firebase_format(original[key]) for key in self.firebase_fields if key in original}
@@ -20,6 +20,15 @@ class FirebaseItem(Item):
     @staticmethod
     def to_item(item, item_class):
         item_class(**{key: value for key, value in item.items() if key in item_class.fields})
+
+
+class RawItem(FirebaseItem):
+
+    location = Field()
+    data = Field()
+
+    def to_firebase(self):
+        return self["data"]
 
 
 class Movie(FirebaseItem):
