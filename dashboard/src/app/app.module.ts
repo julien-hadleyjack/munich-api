@@ -11,6 +11,7 @@ import {MuseumComponent} from './museum/museum.component';
 import {MuseumService} from './museum/museum.service';
 import {OverviewComponent} from './screen/overview/overview.component';
 import {WorkComponent} from './screen/work/work.component';
+import {RouterState} from '@angular/router';
 
 
 @NgModule({
@@ -18,9 +19,9 @@ import {WorkComponent} from './screen/work/work.component';
   imports: [
     BrowserModule,
     HttpModule,
-    AppRoutingModule,
     AlertModule.forRoot(),
-    FirebaseModule
+    FirebaseModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import {WorkComponent} from './screen/work/work.component';
   ],
   providers: [
     MovieService,
-    MuseumService
+    MuseumService,
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,7 +1,7 @@
 import {AngularFireDatabase} from 'angularfire2';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Museum} from "../model/museum";
+import {Observable} from 'rxjs/Observable';
+import {Museum} from '../model/museum';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 

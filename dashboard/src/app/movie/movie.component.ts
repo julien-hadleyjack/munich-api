@@ -1,12 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MovieService} from './movie.service';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 import {Movie} from '../model/movie';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 
 @Component({
-  moduleId: module.id,
   selector: 'movie-overview',
   templateUrl: 'movie.component.html'
 })

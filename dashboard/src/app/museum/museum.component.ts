@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MuseumService} from './museum.service';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/operator/filter';
 import 'rxjs/operator/map';
 import {Museum} from '../model/museum';
 
 @Component({
-  moduleId: module.id,
   selector: 'museum-overview',
   templateUrl: 'museum.component.html'
 })
