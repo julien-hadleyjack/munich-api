@@ -5,10 +5,12 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FirebaseModule} from './firebase.module';
 import {MovieComponent} from './movie/movie.component';
-import {AlertModule} from 'ng2-bootstrap';
+import {AlertModule, CollapseDirective} from 'ng2-bootstrap';
 import {MovieService} from './movie/movie.service';
-import {MuseumComponent} from "./museum/museum.component";
-import {MuseumService} from "./museum/museum.service";
+import {MuseumComponent} from './museum/museum.component';
+import {MuseumService} from './museum/museum.service';
+import {OverviewComponent} from './screen/overview/overview.component';
+import {WorkComponent} from './screen/work/work.component';
 
 
 @NgModule({
@@ -23,7 +25,10 @@ import {MuseumService} from "./museum/museum.service";
   declarations: [
     AppComponent,
     MovieComponent,
-    MuseumComponent
+    MuseumComponent,
+    OverviewComponent,
+    WorkComponent,
+    CollapseDirective
   ],
   providers: [
     MovieService,
