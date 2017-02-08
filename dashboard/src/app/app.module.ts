@@ -30,5 +30,4 @@ import {MuseumService} from "./museum/museum.service";
     MuseumService
   ]
 })
-export class AppModule {
-}
+export class AppModule {}

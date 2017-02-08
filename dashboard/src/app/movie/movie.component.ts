@@ -16,16 +16,14 @@ export class MovieComponent implements OnInit {
   selectedCinema = 'city_kino';
 
   title = 'Movies';
-  movies: Observable<Movie[]>;
+  movies$: Observable<Movie[]>;
 
   constructor(private movieService: MovieService) {
 
   }
 
   ngOnInit() {
-    this.movies = this.movieService.getMovies(this.selectedCinema);
-    this.movies.subscribe(res => console.log(res));
-
+    this.movies$ = this.movieService.getMovies(this.selectedCinema);
   }
 
 

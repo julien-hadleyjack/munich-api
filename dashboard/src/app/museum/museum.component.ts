@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MuseumService} from './museum.service';
 import {Observable} from 'rxjs';
 import 'rxjs/operator/filter';
@@ -13,16 +13,14 @@ import {Museum} from '../model/museum';
 export class MuseumComponent implements OnInit {
 
   title = 'Museums';
-  museums: Observable<Museum[]>;
+  museums$: Observable<Museum[]>;
 
   constructor(private museumService: MuseumService) {
 
   }
 
   ngOnInit() {
-    this.museums = this.museumService.getMuseums();
-    this.museums.subscribe(res => console.log(res));
-
+    this.museums$ = this.museumService.getMuseums();
   }
 
 }
