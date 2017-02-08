@@ -68,3 +68,15 @@ class Museum(FirebaseItem):
     price = Field()
 
     firebase_fields = ["name", "address", "website", "price"]
+
+
+class Event(FirebaseItem):
+
+    title = Field()
+    start = Field()
+    end = Field()
+    all_day = Field()
+    location = Field()
+    description = Field()
+
+    firebase_fields = ["title", "start", "end", "location", "description"]

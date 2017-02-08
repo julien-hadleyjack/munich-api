@@ -6,7 +6,8 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pyrebase
 
-from scraper.items import Movie, Museum, RawItem
+from scraper.items import Movie, Museum, RawItem, Event
+from scraper.spiders.calendar import CalendarSpider
 from scraper.spiders.city_kino import CityKinoSpider
 from scraper.spiders.local import LocalSpider
 from scraper.spiders.royal_kino import RoyalKinoSpider
@@ -44,7 +45,9 @@ class FirebasePipeline(object):
         if isinstance(spider, (RoyalKinoSpider, CityKinoSpider)):
             self.firebase.database().child('movies').child(spider.name).remove()
         elif isinstance(spider, LocalSpider):
-           self.firebase.database().child('museums').remove()
+            self.firebase.database().child('museums').remove()
+        elif isinstance(spider, CalendarSpider):
+            self.firebase.database().child('events').remove()
 
     def process_item(self, item, spider):
         if isinstance(item, Movie):
@@ -53,6 +56,8 @@ class FirebasePipeline(object):
             path = self.firebase.database().child('museums')
         elif isinstance(item, RawItem) and item['location']:
             path = self.firebase.database().child(item['location'])
+        elif isinstance(item, Event):
+            path = self.firebase.database().child('events')
         else:
             return item
 
