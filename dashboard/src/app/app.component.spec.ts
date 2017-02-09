@@ -1,44 +1,78 @@
-import {TestBed, async} from '@angular/core/testing';
+import {TestBed, async, ComponentFixture} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {CollapseDirective} from 'ng2-bootstrap';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {NO_ERRORS_SCHEMA, DebugElement} from '@angular/core';
+import {click, RouterStub} from '../../testing/index';
+import {Router} from '@angular/router';
+import {isPresent} from '@angular/core/src/facade/lang';
+import {RouterLinkStubDirective} from '../../testing/router-stubs';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let de: DebugElement;
+  let el: HTMLElement;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        CollapseDirective
+        CollapseDirective,
+        RouterLinkStubDirective
       ],
+      providers: [{provide: Router, useClass: RouterStub}],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
     TestBed.compileComponents();
   });
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+
+  });
+
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
 
   it(`should have as title 'Munich Dashboard'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Munich Dashboard');
+    // fixture.detectChanges();
+    expect(component.title).toEqual('Munich Dashboard');
   }));
 
   it('should have a navbar title', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.navbar-brand').textContent).toEqual(fixture.componentInstance.title);
+
+    de = fixture.debugElement;
+    el = de.nativeElement;
+
+    expect(el.querySelector('.navbar-brand').textContent).toEqual(fixture.componentInstance.title);
   }));
 
   it('should display the test title', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.componentInstance.title = 'Test Title';
+    de = fixture.debugElement;
+    el = de.nativeElement;
+
+    component.title = 'Test Title';
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.navbar-brand').textContent).toEqual('Test Title');
+    expect(el.querySelector('.navbar-brand').textContent).toEqual('Test Title');
   }));
+
+  it('should navigate to work', () => {
+    fixture.detectChanges();
+
+    de = fixture.debugElement.query((e) => isPresent(e.nativeElement) ? e.nativeElement.textContent === 'Work' : false);
+    el = de.nativeElement;
+
+    const routerLink = de.injector.get(RouterLinkStubDirective);
+    expect(routerLink.navigatedTo).toBeNull('link should not have navigated yet');
+
+    click(el);
+    fixture.detectChanges();
+
+    expect(routerLink.navigatedTo).toBe('/work');
+
+  });
+
 });

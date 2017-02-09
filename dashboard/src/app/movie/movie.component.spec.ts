@@ -7,12 +7,13 @@ import {MovieService} from './movie.service';
 import {FirebaseModule} from '../firebase.module';
 import {Observable} from 'rxjs/Rx';
 import {Movie} from '../model/movie';
+import {Cinema} from '../model/cinema';
 
 
 @Injectable()
 export class FakeMovieService {
 
-  getMovies(): Observable<Movie[]> {
+  getMovies(cinema: String): Observable<Movie[]> {
     return Observable.from([[
       {$key: '-KcKOSZNYDLB05sZ4Czv', orginal_language: false, subtitles: false, title: 'Manchester by the Sea'},
       {$key: '-KcKOSdE9QMRGAXNd_tL', orginal_language: true, subtitles: true, title: 'Elle'}
@@ -40,14 +41,16 @@ describe('MovieComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MovieComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should have a card title', () => {
+    fixture.detectChanges();
     de = fixture.debugElement.query(By.css('.card-title'));
     el = de.nativeElement;
     expect(el.textContent).toEqual(component.title);
@@ -64,5 +67,15 @@ describe('MovieComponent', () => {
     el = de.nativeElement;
     expect(el.textContent.trim()).toEqual('Manchester by the Sea');
   }));
+
+  it('should show cinema test title in card subtitle', () => {
+    fixture.componentInstance.selectedCinema = Cinema.NAMES.ROYAL;
+    fixture.detectChanges();
+
+    de = fixture.debugElement.query(By.css('.card-subtitle'));
+    el = de.nativeElement;
+
+    expect(el.textContent).toEqual(Cinema.NAMES.ROYAL);
+  });
 
 });
