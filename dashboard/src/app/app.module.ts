@@ -5,13 +5,12 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FirebaseModule} from './firebase.module';
 import {MovieComponent} from './movie/movie.component';
-import {AlertModule, CollapseDirective} from 'ng2-bootstrap';
+import {CollapseModule} from 'ng2-bootstrap';
 import {MovieService} from './movie/movie.service';
 import {MuseumComponent} from './museum/museum.component';
 import {MuseumService} from './museum/museum.service';
 import {OverviewComponent} from './screen/overview/overview.component';
 import {WorkComponent} from './screen/work/work.component';
-import {RouterState} from '@angular/router';
 
 
 @NgModule({
@@ -19,7 +18,7 @@ import {RouterState} from '@angular/router';
   imports: [
     BrowserModule,
     HttpModule,
-    AlertModule.forRoot(),
+    CollapseModule.forRoot(),
     FirebaseModule,
     AppRoutingModule
   ],
@@ -28,8 +27,7 @@ import {RouterState} from '@angular/router';
     MovieComponent,
     MuseumComponent,
     OverviewComponent,
-    WorkComponent,
-    CollapseDirective
+    WorkComponent
   ],
   providers: [
     MovieService,

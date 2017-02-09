@@ -1,9 +1,10 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
-import { OverviewComponent } from './overview.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {OverviewComponent} from './overview.component';
+import {MovieComponent} from '../../movie/movie.component';
+import {MuseumComponent} from '../../museum/museum.component';
+import {MovieService} from '../../movie/movie.service';
+import {FirebaseModule} from '../../firebase.module';
+import {MuseumService} from '../../museum/museum.service';
 
 describe('OverviewComponent', () => {
   let component: OverviewComponent;
@@ -11,7 +12,9 @@ describe('OverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ]
+      imports: [FirebaseModule],
+      declarations: [ OverviewComponent, MovieComponent, MuseumComponent ],
+      providers:    [ MovieService, MuseumService ]
     })
     .compileComponents();
   }));

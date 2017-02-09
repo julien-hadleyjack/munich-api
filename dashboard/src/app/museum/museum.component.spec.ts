@@ -1,8 +1,7 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MuseumComponent} from './museum.component';
+import {MuseumService} from './museum.service';
+import {FirebaseModule} from '../firebase.module';
 
 
 describe('MuseumComponent', () => {
@@ -11,7 +10,9 @@ describe('MuseumComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MuseumComponent ]
+      imports: [FirebaseModule],
+      declarations: [ MuseumComponent ],
+      providers: [MuseumService]
     })
     .compileComponents();
   }));

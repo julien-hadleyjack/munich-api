@@ -1,8 +1,7 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed, async} from '@angular/core/testing';
+import {AppComponent} from './app.component';
 import {CollapseDirective} from 'ng2-bootstrap';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -11,6 +10,7 @@ describe('AppComponent', () => {
         AppComponent,
         CollapseDirective
       ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     });
     TestBed.compileComponents();
   });
@@ -21,16 +21,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it(`should have as title 'Munich Dashboard'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Munich Dashboard!');
+    expect(app.title).toEqual('Munich Dashboard');
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should have a navbar title', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Munich Dashboard');
+    expect(compiled.querySelector('.navbar-brand').textContent).toContain('Munich Dashboard');
   }));
 });
