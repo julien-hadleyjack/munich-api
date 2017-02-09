@@ -7,7 +7,7 @@
 import pyrebase
 
 from scraper.items import Movie, Museum, RawItem, Event
-from scraper.spiders.calendar import CalendarSpider
+from scraper.spiders._calendar import CalendarSpider
 from scraper.spiders.city_kino import CityKinoSpider
 from scraper.spiders.local import LocalSpider
 from scraper.spiders.royal_kino import RoyalKinoSpider

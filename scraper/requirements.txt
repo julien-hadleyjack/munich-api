@@ -2,3 +2,5 @@ scrapy
 pyrebase
 pyyaml
 ics
+pdfminer.six
+# pdfquery
