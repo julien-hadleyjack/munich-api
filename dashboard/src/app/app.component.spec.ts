@@ -31,6 +31,14 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.navbar-brand').textContent).toContain('Munich Dashboard');
+    expect(compiled.querySelector('.navbar-brand').textContent).toEqual(fixture.componentInstance.title);
+  }));
+
+  it('should display the test title', async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.componentInstance.title = 'Test Title';
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.navbar-brand').textContent).toEqual('Test Title');
   }));
 });
