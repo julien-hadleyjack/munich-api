@@ -1,24 +1,36 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
+import { Dashboard } from '../pages/dashboard/page1';
+import { Work } from '../pages/work/work';
+import {FirebaseModule} from './firebase.module';
+import {MovieComponent} from '../movie/movie.component';
+import {MovieService} from '../movie/movie.service';
+import {MuseumComponent} from '../museum/museum.component';
+import {MuseumService} from '../museum/museum.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    Page1,
-    Page2
+    Dashboard,
+    Work,
+    MovieComponent,
+    MuseumComponent
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    FirebaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Page1,
-    Page2
+    Dashboard,
+    Work
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MovieService,
+    MuseumService
+    ]
 })
 export class AppModule {}
