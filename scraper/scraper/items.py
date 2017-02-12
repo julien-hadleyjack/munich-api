@@ -54,10 +54,13 @@ class Restaurant(FirebaseItem):
 
 class Meal(FirebaseItem):
 
+    restaurant = Field()
+    day = Field()
     name = Field()
     price = Field()
+    category = Field()
 
-    firebase_fields = ["name", "price"]
+    firebase_fields = ["name", "price", "category"]
 
 
 class Museum(FirebaseItem):

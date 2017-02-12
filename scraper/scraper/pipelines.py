@@ -6,7 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pyrebase
 
-from scraper.items import Movie, Museum, RawItem, Event
+from scraper.items import Movie, Museum, RawItem, Event, Meal
 from scraper.spiders._calendar import CalendarSpider
 from scraper.spiders.city_kino import CityKinoSpider
 from scraper.spiders.local import LocalSpider
@@ -58,6 +58,8 @@ class FirebasePipeline(object):
             path = self.firebase.database().child(item['location'])
         elif isinstance(item, Event):
             path = self.firebase.database().child('events')
+        elif isinstance(item, Meal):
+            path = self.firebase.database().child('meals').child(item['restaurant']).child(item['day'])
         else:
             return item
 

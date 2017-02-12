@@ -12,13 +12,17 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 
-from scraper.items import RawItem
+from scraper.items import RawItem, Meal
 
 
 class LeonardiSpider(scrapy.Spider):
     name = "leonardi"
     allowed_domains = ["pdf"]
-    start_urls = ["http://www.leonardi-kg.de/foodmenu/?password=" + os.environ.get("LEONARDI_PASSWORD")]
+    start_urls = ["http://www.leonardi-kg.de/foodmenu/?password=" + os.environ.get("LEONARDI_PASSWORD", "")]
+
+    weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"]
+    categories = ["Salatbar", "Salatvariation", "Suppe", "Hauptgerichte", "Dessert"]
+    exlude_lines = ["m.pire -", "Alle unsere warmen Gerichte", "Wir reichen Ihnen", "Ihr leonardi Team", "Mehr Informationen"]
 
     def __init__(self, *args, **kwargs):
         logging.getLogger('pdfminer.psparser').setLevel(logging.WARN)
@@ -56,25 +60,22 @@ class LeonardiSpider(scrapy.Spider):
     def parse_text(self, text: str) -> dict:
         text = [line for line in text.split("\n") if line.strip()]
 
-        weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"]
-        categories = ["Salatbar", "Salatvariation", "Suppe", "Hauptgerichte", "Dessert"]
-        exlude_lines = ["m.pire -", "Alle unsere warmen Gerichte", "Wir reichen Ihnen", "Ihr leonardi Team", "Mehr Informationen"]
         meal_plan = {"day": None, "meals": []}
         meals = []
         prices = []
         category = None
         for line in text:
             words = line.split(" ")
-            if not meal_plan["day"] and len(words) > 0 and words[0] in weekdays:
+            if not meal_plan["day"] and len(words) > 0 and words[0] in self.weekdays:
                 meal_plan["day"] = arrow.get(line, "DD.MM").replace(year=arrow.now().year).format("YYYY-MM-DD")
-            elif meal_plan["day"] and len(words) > 0 and words[0] in categories:
+            elif meal_plan["day"] and len(words) > 0 and words[0] in self.categories:
                 category = words[0]
-            elif any(line.startswith(exclude) for exclude in exlude_lines):
+            elif any(line.startswith(exclude) for exclude in self.exlude_lines):
                 continue
             elif meal_plan["day"] and "€" in line and len(words) > 0:
                 prices.append(words[0].replace(",", "."))
             elif meal_plan["day"] and category:
-                meals.append({"name": line.replace(" I ", " | "), "category": category})
+                meals.append(Meal(restaurant="leonardi", day=meal_plan["day"], name=line.replace(" I ", " | "), category=category))
 
         if len(meals) == len(prices):
             for meal, price in zip(meals, prices):
@@ -85,18 +86,3 @@ class LeonardiSpider(scrapy.Spider):
             meal_plan["meals"].append(meals)
 
         return meal_plan
-
-
-if __name__ == '__main__':
-
-    spider = LeonardiSpider()
-
-    with open("../../data/leonardi-speiseplan.pdf", 'rb') as file:
-        text = spider.pdf_to_text(file)
-
-    print(text)
-    print("\n\n\n\n")
-
-    result = spider.parse_text(text)
-
-    pprint.pprint(result)
