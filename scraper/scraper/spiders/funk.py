@@ -20,6 +20,7 @@ class FunkSpider(scrapy.Spider):
     start_urls = ['http://lecker-mittagessen.com/lecker-mittagessen-in-muenchen/funk-casino-im-idg-verlag//']
 
     weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"]
+    categories = ["Beilagen", "Aktionsgericht"]
 
     def __init__(self, *args, **kwargs):
         logging.getLogger('pdfminer.psparser').setLevel(logging.WARN)
@@ -73,7 +74,7 @@ class FunkSpider(scrapy.Spider):
                 name = re.sub("\s*(\|\s*)+", " | ", name)
                 yield Meal(restaurant=self.name, day=day, name=name, category=category or "Hauptgericht")
                 name = ""
-            elif ":" in line:
+            elif ":" in line or any(line.startswith(category_item) for category_item in self.categories):
                 category = line.strip().strip(":")
             elif "€" not in line and line.strip() != "":
                 line = re.sub("[A-Z,\d\s]+$", "", line)

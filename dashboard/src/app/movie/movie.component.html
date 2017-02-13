@@ -2,7 +2,7 @@
   <div class="card-block">
     <h4 class="card-title">{{title}}</h4>
     <h6 class="card-subtitle mb-2 text-muted">{{selectedCinema}}</h6>
-    <ul class="list-group list-group-flush" *ngFor="let movie of movies$ | async">
+    <ul class="list-group list-group-flush text-left" *ngFor="let movie of movies$ | async">
       <li class="list-group-item justify-content-between">
         {{ movie.title }}
         <span class="badge badge-default badge-pill" *ngIf="movie.orginal_language">OV</span>
