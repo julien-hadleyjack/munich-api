@@ -7,6 +7,7 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'work.html'
 })
 export class Work {
+  title = "Work";
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;

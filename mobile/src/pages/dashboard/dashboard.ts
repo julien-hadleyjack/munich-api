@@ -8,6 +8,7 @@ import {Cinema} from '../../model/cinema';
 })
 export class Dashboard {
 
+  title = "Dashboard";
   cinema_names = Cinema.NAMES;
 
   constructor(public navCtrl: NavController) {

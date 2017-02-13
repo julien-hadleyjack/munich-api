@@ -1,9 +1,9 @@
 <ion-card>
   <ion-card-header>
-    {{title}}
+    <h1>{{title}}</h1>
   </ion-card-header>
 
-  <ion-list *ngFor="let movie of movies$ | async">
+  <ion-list no-lines *ngFor="let movie of movies$ | async">
       <span ion-item>
         {{ movie.title }}
         <ion-badge item-right *ngIf="movie.orginal_language">OV</ion-badge>

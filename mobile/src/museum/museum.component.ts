@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MuseumService} from './museum.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/operator/filter';

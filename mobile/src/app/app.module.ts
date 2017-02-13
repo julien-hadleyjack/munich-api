@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Dashboard } from '../pages/dashboard/page1';
+import { Dashboard } from '../pages/dashboard/dashboard';
 import { Work } from '../pages/work/work';
 import {FirebaseModule} from './firebase.module';
 import {MovieComponent} from '../movie/movie.component';

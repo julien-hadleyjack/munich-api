@@ -3,14 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Page One</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
   <movie-overview [selectedCinema]="cinema_names.CITY"></movie-overview>
-  <movie-overview [selectedCinema]="cinema_names.ROYAL"></movie-overview>
-  <museum-overview></museum-overview>
+  <movie-overview [selectedCinema]="cinema_names.ROYAL" padding></movie-overview>
+  <museum-overview padding></museum-overview>
 </ion-content>

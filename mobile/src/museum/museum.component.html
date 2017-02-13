@@ -1,9 +1,9 @@
 <ion-card>
   <ion-card-header>
-    {{title}}
+    <h1>{{title}}</h1>
   </ion-card-header>
 
-  <ion-list *ngFor="let museum of museums$ | async">
+  <ion-list no-lines *ngFor="let museum of museums$ | async">
       <span ion-item>
         {{ museum.name }}
         <ion-badge item-right *ngIf="museum.price === 0">Free</ion-badge>
