@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import arrow
 import scrapy
 
 from scraper.items import Meal, RawItem
@@ -12,15 +13,17 @@ class MicrosoftSpider(scrapy.Spider):
     )
 
     def parse(self, response):
-        for food_category in response.css(".FoodCategoryContainer"):
-            category = food_category.css("h4::text").extract_first()
-            for meal in food_category.css("ul.dishes"):
-                yield self.parse_meal(meal, category)
+        for section in response.xpath('//section[contains(@id, "page-menu")]'):
+            day = section.xpath("@data-mt-subtitle").extract_first()
+            day = arrow.get(day, "DD.MM.YYYY").format("YYYY-MM-DD") if day else None
+            for category in section.css("div.FoodCategoryContainer"):
+                category_title = category.css("h4.FoodCategoryTitle::text").extract_first()
+                for meal in category.css("div.mt-page-link-inner"):
+                    yield self.parse_meal(meal, day, category_title)
 
-    def parse_meal(self, meal, category):
+    def parse_meal(self, meal, day, category):
         name = meal.css("span.dishDescriptionInner::text").extract_first().strip()
         price = meal.css(".dishPriceSmallInner::text").re("\d+,\d+")
         price = price[0].replace(",", ".") if price else None
-        day = meal.css("a::attr(href)").extract_first()
-        day = day.split("-date-")[-1] if day else None
+
         return Meal(restaurant="microsoft", day=day, name=name, price=price, category=category)

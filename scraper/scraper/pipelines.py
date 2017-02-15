@@ -10,6 +10,7 @@ from scraper.items import Movie, Museum, RawItem, Event, Meal
 from scraper.spiders._calendar import CalendarSpider
 from scraper.spiders.city_kino import CityKinoSpider
 from scraper.spiders.local import LocalSpider
+from scraper.spiders.microsoft_kantine import MicrosoftSpider
 from scraper.spiders.royal_kino import RoyalKinoSpider
 
 
@@ -48,6 +49,8 @@ class FirebasePipeline(object):
             self.firebase.database().child('museums').remove()
         elif isinstance(spider, CalendarSpider):
             self.firebase.database().child('events').remove()
+        elif isinstance(spider, MicrosoftSpider):
+            self.firebase.database().child('meals').child('microsoft').remove()
 
     def process_item(self, item, spider):
         if isinstance(item, Movie):
