@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-toggleable-md fixed-top navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" (click)="collapsedNavbar = !collapsedNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,16 +7,22 @@
   <div class="collapse navbar-collapse" [collapse]="collapsedNavbar">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/overview" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/overview" routerLinkActive="active">
+          Home
+          <span *ngIf="isActiveLink('/overview')" class="sr-only">(current)</span>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/work" routerLinkActive="active">Work</a>
+        <a class="nav-link" routerLink="/work" routerLinkActive="active">
+          Work
+          <span *ngIf="isActiveLink('/work')" class="sr-only">(current)</span>
+        </a>
       </li>
     </ul>
   </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
 
   <router-outlet></router-outlet>
 </div>
